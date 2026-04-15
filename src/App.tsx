@@ -49,8 +49,13 @@ const Nav = () => {
       <div className="max-w-7xl mx-auto px-10 w-full flex items-center justify-between">
         {/* Logo */}
         <div className="flex-shrink-0">
-          <a href="#" className="text-white font-sans text-2xl font-black tracking-tighter uppercase">
-            DR PEPPER
+          <a href="#" className="flex items-center">
+            <img 
+              src="/logo.png" 
+              alt="Dr Pepper logo" 
+              className="h-12 w-auto object-contain"
+              referrerPolicy="no-referrer"
+            />
           </a>
         </div>
 
@@ -144,13 +149,14 @@ const Hero = () => {
           transition={{ duration: 1, ease: "easeOut" }}
           className="relative flex justify-center md:justify-center"
         >
-          {/* CSS Placeholder Can */}
-          <div className="w-[180px] h-[340px] bg-gradient-to-r from-[#7D0000] via-drpepper-red to-[#7D0000] rounded-t-[20px] rounded-b-[10px] border-t-8 border-drpepper-silver shadow-[20px_20px_50px_rgba(0,0,0,0.3)] relative overflow-hidden transform hover:rotate-0 transition-transform duration-500">
-            <div className="absolute inset-0 bg-white/5 skew-x-12 -translate-x-1/2"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-white font-sans text-4xl font-black -rotate-90 tracking-tighter opacity-90">DR PEPPER</span>
-            </div>
-          </div>
+          {/* Real Product Can Image */}
+          <img 
+            src="/can.png" 
+            alt="Dr Pepper original — authentic blend of 23 flavours" 
+            className="h-[280px] md:h-[420px] w-auto object-contain relative z-10 -mb-10 md:-mb-10"
+            style={{ filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.4))' }}
+            referrerPolicy="no-referrer"
+          />
           {/* Floating Accents */}
           <motion.div 
             animate={{ y: [0, -20, 0] }}
@@ -197,12 +203,12 @@ const Ticker = () => {
 
 const ProductRange = () => {
   const products = [
-    { name: "Original", desc: "The OG 23 Flavours", color: "bg-drpepper-red" },
-    { name: "Diet Pepper", desc: "Bold Taste, No Sugar", color: "bg-[#2A2A2A]" },
-    { name: "Zero Sugar", desc: "Maximum Pepper Flavour", color: "bg-drpepper-black" },
-    { name: "Cherry", desc: "Smooth Dark Cherry Mix", color: "bg-[#7A0000]" },
-    { name: "Cream Soda", desc: "Smooth, velvety vanilla notes", color: "bg-[#F5ECD7]", darkText: true },
-    { name: "Strawberries & Cream", desc: "Sweet berry meets smooth cream", color: "bg-[#D4607A]" },
+    { name: "Original", desc: "The OG 23 Flavours", color: "bg-drpepper-red", image: "/original.jpg" },
+    { name: "Diet Pepper", desc: "Bold Taste, No Sugar", color: "bg-[#2A2A2A]", image: "/diet.jpg" },
+    { name: "Zero Sugar", desc: "Maximum Pepper Flavour", color: "bg-drpepper-black", image: "/zero.jpg" },
+    { name: "Cherry", desc: "Smooth Dark Cherry Mix", color: "bg-[#7A0000]", image: "/cherry.jpg" },
+    { name: "Cream Soda", desc: "Smooth, velvety vanilla notes", color: "bg-[#F5ECD7]", darkText: true, image: "/cream-soda.jpg" },
+    { name: "Strawberries & Cream", desc: "Sweet berry meets smooth cream", color: "bg-[#D4607A]", image: "/strawberries.jpg" },
   ];
 
   return (
@@ -217,9 +223,30 @@ const ProductRange = () => {
             <motion.div
               key={product.name}
               whileHover={{ y: -5 }}
-              className={`${product.color} rounded-lg p-4 shadow-sm flex flex-col justify-end h-[120px] transition-transform duration-200 cursor-pointer group`}
+              className={`${product.color} rounded-lg p-4 shadow-sm flex flex-col items-center justify-between h-[280px] transition-transform duration-200 cursor-pointer group overflow-hidden`}
             >
-              <div>
+              <div className="relative w-full h-40 flex items-center justify-center">
+                {product.name === "Original" ? (
+                  <img 
+                    src="/can.png" 
+                    alt={product.name} 
+                    className="h-[120px] w-auto object-contain drop-shadow-lg"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <img 
+                    src={product.image} 
+                    alt={product.name} 
+                    className="h-[180px] w-auto object-contain"
+                    onError={(e) => {
+                      // Fallback to placeholder if AI image not found
+                      (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${product.name}/600/600`;
+                    }}
+                    referrerPolicy="no-referrer"
+                  />
+                )}
+              </div>
+              <div className="w-full text-left">
                 <h3 className={`text-sm font-black uppercase ${product.darkText ? 'text-drpepper-black' : 'text-white'}`}>
                   {product.name}
                 </h3>
@@ -244,29 +271,29 @@ const BrandStory = () => {
   ];
 
   return (
-    <Section id="story" className="bg-white py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-20 items-center">
+    <Section id="story" className="bg-brand-story py-24 relative">
+      <div className="max-w-7xl mx-auto px-10 grid md:grid-cols-2 gap-20 items-center relative z-10">
         <div>
-          <h2 className="text-drpepper-red font-display text-[120px] font-extrabold leading-none mb-4">1885</h2>
-          <p className="text-gray-800 text-2xl leading-relaxed mb-8 font-medium">
+          <h2 className="text-white font-sans text-[120px] font-black leading-none mb-4 drop-shadow-lg">1885</h2>
+          <p className="text-white text-2xl leading-relaxed mb-8 font-medium drop-shadow-md">
             Born in a Waco, Texas pharmacy, Dr Pepper was different from day one. No one could explain the taste — and that was always the point.
           </p>
-          <a href="#" className="text-drpepper-red font-bold text-lg border-b-2 border-drpepper-red pb-1 hover:opacity-80 transition-opacity">
+          <a href="#" className="text-white font-bold text-lg border-b-2 border-white pb-1 hover:opacity-80 transition-opacity">
             Read Our Story
           </a>
         </div>
 
-        <div className="relative pl-12">
+        <div className="relative pl-12 bg-black/20 backdrop-blur-sm p-8 rounded-3xl border border-white/10">
           {/* Timeline Line */}
-          <div className="absolute left-[23px] top-4 bottom-4 w-[2px] bg-drpepper-red"></div>
+          <div className="absolute left-[55px] top-12 bottom-12 w-[2px] bg-white/30"></div>
           
           <div className="space-y-12">
             {milestones.map((m, i) => (
               <div key={i} className="relative">
-                <div className="absolute -left-[12px] top-2 w-6 h-6 rounded-full bg-drpepper-red border-4 border-white shadow-sm"></div>
+                <div className="absolute -left-[12px] top-2 w-6 h-6 rounded-full bg-white border-4 border-drpepper-red shadow-sm"></div>
                 <div className="pl-8">
-                  <h4 className="text-xl font-bold text-drpepper-black">{m.year}</h4>
-                  <p className="text-gray-500">{m.text}</p>
+                  <h4 className="text-xl font-bold text-white">{m.year}</h4>
+                  <p className="text-white/70">{m.text}</p>
                 </div>
               </div>
             ))}
@@ -287,10 +314,13 @@ const FanClub = () => {
   };
 
   return (
-    <Section id="fan-club" className="bg-drpepper-red py-24 text-center">
-      <div className="max-w-3xl mx-auto px-4">
-        <h2 className="text-white font-display text-5xl md:text-6xl font-bold mb-6 uppercase">Join the Pepper People.</h2>
-        <p className="text-drpepper-offwhite text-xl mb-12 opacity-90">
+    <Section id="fan-club" className="bg-drpepper-red py-24 text-center relative overflow-hidden">
+      {/* Section 11c: Fan Club Illustration Background */}
+      <div className="absolute inset-0 bg-fan-club opacity-15 mix-blend-overlay"></div>
+      
+      <div className="max-w-3xl mx-auto px-4 relative z-10">
+        <h2 className="text-white font-sans text-5xl md:text-6xl font-black mb-6 uppercase tracking-tighter">Join the Pepper People.</h2>
+        <p className="text-drpepper-offwhite text-xl mb-12 font-medium opacity-90">
           Get exclusive deals, early flavour drops, and merch. No spam. Just Pepper.
         </p>
 
@@ -302,7 +332,7 @@ const FanClub = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onSubmit={handleSubmit}
-              className="flex flex-col sm:flex-row max-w-lg mx-auto"
+              className="flex flex-col sm:flex-row max-w-lg mx-auto shadow-2xl"
             >
               <input
                 type="email"
@@ -310,11 +340,11 @@ const FanClub = () => {
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-grow bg-white px-6 py-4 text-black focus:outline-none rounded-t-2xl sm:rounded-l-2xl sm:rounded-tr-none text-lg"
+                className="flex-grow bg-white px-6 py-4 text-black focus:outline-none rounded-t-2xl sm:rounded-l-2xl sm:rounded-tr-none text-lg font-medium"
               />
               <button
                 type="submit"
-                className="bg-black text-white px-8 py-4 font-bold text-lg rounded-b-2xl sm:rounded-r-2xl sm:rounded-bl-none hover:bg-gray-900 transition-colors flex items-center justify-center gap-2"
+                className="bg-black text-white px-8 py-4 font-black text-lg rounded-b-2xl sm:rounded-r-2xl sm:rounded-bl-none hover:bg-gray-900 transition-colors flex items-center justify-center gap-2 uppercase tracking-tight"
               >
                 I'm In <Send size={18} />
               </button>
@@ -324,18 +354,18 @@ const FanClub = () => {
               key="success"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="bg-white/10 backdrop-blur-md rounded-3xl p-8 inline-block"
+              className="bg-white/10 backdrop-blur-md rounded-3xl p-8 inline-block border border-white/20"
             >
               <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
                 <Check className="text-drpepper-red" size={32} />
               </div>
-              <h3 className="text-white text-2xl font-bold">You're a Pepper now.</h3>
-              <p className="text-white/80">Check your inbox for your first drop.</p>
+              <h3 className="text-white text-2xl font-black uppercase">You're a Pepper now.</h3>
+              <p className="text-white/80 font-medium">Check your inbox for your first drop.</p>
             </motion.div>
           )}
         </AnimatePresence>
 
-        <p className="mt-8 text-white/50 text-sm">
+        <p className="mt-8 text-white/50 text-sm font-medium">
           By signing up you agree to our privacy policy. Unsubscribe anytime.
         </p>
       </div>
@@ -347,7 +377,15 @@ const Footer = () => {
   return (
     <footer className="bg-[#0D0D0D] text-[#666] h-[60px] flex items-center">
       <div className="max-w-7xl mx-auto px-10 w-full flex items-center justify-between text-[11px]">
-        <div>&copy; 2025 Dr Pepper / Keurig Dr Pepper. All rights reserved.</div>
+        <div className="flex items-center gap-4">
+          <img 
+            src="/logo.png" 
+            alt="Dr Pepper logo" 
+            className="h-10 w-auto object-contain opacity-50 hover:opacity-100 transition-opacity"
+            referrerPolicy="no-referrer"
+          />
+          <div>&copy; 2025 Dr Pepper / Keurig Dr Pepper. All rights reserved.</div>
+        </div>
         <div className="flex gap-4">
           <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
           <span>|</span>

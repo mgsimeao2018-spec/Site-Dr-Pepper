@@ -35,6 +35,28 @@
       #8C0000 100px, 
       #8C0000 200px
     );
+    /* Section 11a: Hero background texture placeholder */
+    background-image: url('/hero-texture.jpg'), repeating-linear-gradient(
+      45deg, 
+      #B10000, 
+      #B10000 100px, 
+      #8C0000 100px, 
+      #8C0000 200px
+    );
+    background-blend-mode: overlay;
+  }
+
+  .bg-brand-story {
+    background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('/story-bg.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .bg-fan-club {
+    background-image: url('/fan-club-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   .vertical-rl {
